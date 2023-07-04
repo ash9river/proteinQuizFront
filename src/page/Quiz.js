@@ -31,9 +31,37 @@ function Quiz(){
     const handleNextQuiz = () => {
         // 다음 퀴즈로 이동
         setCurrentQuizIndex(prevIndex => prevIndex + 1);
-        //마지막 퀴즈 이후
-        if(turn==3)
+        
+        //마지막 퀴즈이면
+        if(turn==3){
+          const outcome = {
+            "score" : score
+          }
+          console.log(outcome);
+
+          fetch('/api/players/outcome', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json', 
+            },
+            body: JSON.stringify(outcome) ,
+          })
+            .then(response => response) 
+            .then(data => {
+              // POST 요청이 성공한 경우의 처리
+              console.log('서버 응답:', data);
+            })
+            .catch(error => {
+              // POST 요청이 실패한 경우의 처리
+              console.error('에러:', error);
+            });
             navigate('/end')
+
+          };
+
+          //답안 입력 초기화
+          setAnswer();
+          
       };
 
     const handleSubmitAnswer = (e,answer,protein) => {
@@ -41,7 +69,7 @@ function Quiz(){
         console.log(answer,protein)
         
         //정답 팝업 띄우기 
-        setModalIsOpen(true)
+        setModalIsOpen(true);
       };
 
       const handleModalClose = (score_get) => {
@@ -50,8 +78,9 @@ function Quiz(){
         setScore((prevScore) => prevScore + score_get); //정답 로직 설정하기
         setTurn((prevTurn) => prevTurn + 1);
 
-        setModalIsOpen(false)
+        setModalIsOpen(false);
         handleNextQuiz();
+        
       };
 
 
@@ -87,7 +116,7 @@ function Quiz(){
               답안 제출
               </button>
             </form>
-        <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
+        <Modal isOpen={modalIsOpen}>
           <ModalBasic answer={answer} protein={quiz.protein} onClose={handleModalClose} />
           </Modal>
 
