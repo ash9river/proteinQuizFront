@@ -1,128 +1,128 @@
 import React, { useState, useEffect } from 'react';
-import {useNavigate} from'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Modal from 'react-modal';
 import ModalBasic from '../component/ModalBasic';
 
-function Quiz(){
-    const url ='http://localhost:8080';    
-    const navigate = useNavigate();
+function Quiz() {
+  const url = 'http://localhost:8080';
+  const navigate = useNavigate();
 
-    const [turn,setTurn] = useState(1); //몇번째 턴
-    const [answer,setAnswer] = useState(); //몇번째 턴
+  const [turn, setTurn] = useState(1); //몇번째 턴
+  const [answer, setAnswer] = useState('');
 
-    const [score,setScore] = useState(0); //점수
-    const [quizList,setQuizList]=useState([]);//퀴즈 목록 
-    const [currentQuizIndex, setCurrentQuizIndex] = useState(0); //퀴즈 목록 index
+  const [score, setScore] = useState(0); //점수
+  const [player, setPlayer] = useState();
 
-    const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [quiz, setQuiz] = useState();
+  const [quizList, setQuizList] = useState([]); //퀴즈 목록
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [outcome, setOutcome] = useState();
 
+  //퀴즈 받아오기
+  useEffect(() => {
+    console.log('Get Quiz');
 
+    axios
+      .get('/api/quizs')
+      .then(response => {
+        setQuiz(response.data.quiz);
+        setPlayer(response.data.player);
+      })
+      .catch(error => console.log(error));
+  }, []);
 
-    useEffect(() => {
-        axios.get('/api/quizs')
-        .then(response => {console.log((response.data))
-        setQuizList(response.data)
-        console.log(quizList)
-    })
-        .catch(error => console.log(error))
-    }, []);
+  //몇번째 턴인지와 점수
+  useEffect(() => {
+    if (player) {
+      console.log('After Getting quiz');
+      setTurn(player.turn);
+      setScore(player.score);
+      setQuizList(player.foodList);
+    }
+  }, [player]);
 
-    const handleNextQuiz = () => {
-        // 다음 퀴즈로 이동
-        setCurrentQuizIndex(prevIndex => prevIndex + 1);
-        
-        //마지막 퀴즈이면
-        if(turn==3){
-          const outcome = {
-            "score" : score
-          }
-          console.log(outcome);
+  const handleSubmitAnswer = e => {
+    e.preventDefault();
 
-          fetch('/api/players/outcome', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json', 
-            },
-            body: JSON.stringify(outcome) ,
-          })
-            .then(response => response) 
-            .then(data => {
-              // POST 요청이 성공한 경우의 처리
-              console.log('서버 응답:', data);
-            })
-            .catch(error => {
-              // POST 요청이 실패한 경우의 처리
-              console.error('에러:', error);
-            });
-            navigate('/end')
+    console.log(answer);
 
-          };
+    // 전송할 폼 작성
+    const outcomeData = {
+      answer: Number(answer), // 유저 답안
+      quizId: quiz.key // 푼 문제
+    };
 
-          //답안 입력 초기화
-          setAnswer();
-          
-      };
+    setOutcome(outcomeData);
+    setModalIsOpen(true);
+  };
 
-    const handleSubmitAnswer = (e,answer,protein) => {
-        e.preventDefault();
-        console.log(answer,protein)
-        
-        //정답 팝업 띄우기 
-        setModalIsOpen(true);
-      };
+  const handleModalClose = () => {
+    setModalIsOpen(false);
+    //답안 입력 초기화
+    setAnswer('');
+    handleNextQuiz();
+  };
+  
+  const handleNextQuiz = () => {
+    console.log('Next Quiz');
+    //마지막 퀴즈이면
+    if (turn === 10) {
+      navigate('/end');
+    } else {
+      setAnswer('');
+      setOutcome(null);
+      setModalIsOpen(false);
+      axios
+        .get('/api/quizs')
+        .then(response => {
+          setQuiz(response.data.quiz);
+          setPlayer(response.data.player);
+        })
+        .catch(error => console.log(error));
+    }
+  };
+  
 
-      const handleModalClose = (score_get) => {
-        // 반환값을 이용하여 원하는 로직 처리
-        console.log('반환값:', score_get);
-        setScore((prevScore) => prevScore + score_get); //정답 로직 설정하기
-        setTurn((prevTurn) => prevTurn + 1);
-
-        setModalIsOpen(false);
-        handleNextQuiz();
-        
-      };
-
-
-    return ( 
+  return (
     <div className="container">
-      <div>
-        <h3>{turn}/10 턴</h3>
-        <h3>현재 점수: {score}</h3>
+      {player ? (
+        <div>
+          <h3>{turn}/10 턴</h3>
+          <h3>현재 점수: {score}</h3>
+        </div>
+      ) : null}
 
-      </div>
-
-    {quizList.map((quiz, index) => (
-        index === currentQuizIndex && (
-          <div key={quiz.key}>
-            <h2>{quiz.name}</h2>
-            <img src={url + quiz.file_path} alt={quiz.name}  style={{ width: '60%', height: '50vh' }}/>
-            <p>단백질: {quiz.protein}</p>
-
-            <form onSubmit={(e) => handleSubmitAnswer(e, answer, quiz.protein)}>
-              <div className="form-group">
-                <label htmlFor="answer">답안 입력</label>
-                <input
-                  type="text"
-                  id="answer"
-                  name="answer"
-                  className="form-control"
-                  placeholder="답안을 입력하세요"
-                  value={answer}
-                  onChange={(e) => setAnswer(e.target.value)}
-                />
-              </div>
-              <button className="btn btn-primary" type="submit">
+      {quiz ? (
+        <div key={quiz.key}>
+          <h2>{quiz.name}</h2>
+          <img src={url + quiz.file_path} alt={quiz.name} style={{ width: '60%', height: '50vh' }} />
+          <form onSubmit={handleSubmitAnswer}>
+            <div className="form-group">
+              <label htmlFor="answer">답안 입력</label>
+              <input
+                type="text"
+                id="answer"
+                name="answer"
+                className="form-control"
+                placeholder="답안을 입력하세요"
+                value={answer}
+                onChange={e => setAnswer(e.target.value)}
+              />
+            </div>
+            <button className="btn btn-primary" type="submit" disabled={modalIsOpen}>
               답안 제출
-              </button>
-            </form>
-        <Modal isOpen={modalIsOpen}>
-          <ModalBasic answer={answer} protein={quiz.protein} onClose={handleModalClose} />
+            </button>
+          </form>
+          <Modal appElement={document.getElementById('root')} isOpen={modalIsOpen}>
+            <ModalBasic user_answer={answer} outcome={outcome} modalIsOpen={modalIsOpen} onClose={handleModalClose} />
           </Modal>
-
-          </div>
-        )
-      ))}
-  </div>)
+        </div>
+      ) : (
+        <div>Wait</div>
+      )}
+    </div>
+  );
 }
-export default Quiz
+
+export default Quiz;
