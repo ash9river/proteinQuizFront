@@ -29,7 +29,11 @@ function Quiz() {
         setQuiz(response.data.quiz);
         setPlayer(response.data.player);
       })
-      .catch(error => console.log(error));
+      .catch(error => {//에러 발생시 홈으로
+        console.log(error.response.data.status);
+        if(error.response.data.status==-10)
+          navigate('/');}
+      );
   }, []);
 
   //몇번째 턴인지와 점수

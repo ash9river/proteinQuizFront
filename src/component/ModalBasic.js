@@ -1,8 +1,11 @@
 import React, { useEffect, useState, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 
 const ModalBasic = ({ user_answer, outcome, onClose }) => {
   const [score, setScore] = useState(null);
   const [answer, setAnswer] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (outcome && score === null) {
@@ -19,9 +22,10 @@ const ModalBasic = ({ user_answer, outcome, onClose }) => {
           setAnswer(data.answer);
           setScore(data.score);
         })
-        .catch(error => {
-          console.error('에러:', error);
-        });
+        .catch(error => {//에러 발생시 홈으로
+          console.log(error.response.data.status);
+          if(error.response.data.status==-10) //서버에서 보낸 에러 코드
+            navigate('/');});
     }
   }, [outcome, score]);
 

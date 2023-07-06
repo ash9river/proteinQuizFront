@@ -1,16 +1,23 @@
 import { useState, useEffect } from "react";
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 
 function End(){
     const [dashboard,setDashBoard] = useState([])
     const [player,setPlayer] = useState({})
+    const navigate = useNavigate();
+
     useEffect(() => {
         axios.get('/api/dashboard/player')
         .then(response => {console.log((response.data))
         setDashBoard(response.data.dashBoard)
         setPlayer(response.data.player)
     })
-        .catch(error => console.log(error))
+        .catch(error =>{//에러 발생시 홈으로
+            console.log(error.response.data.status);
+            if(error.response.data.status==-10)
+              navigate('/');})
     }, []);
     return (
         <div className="container">

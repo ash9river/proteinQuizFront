@@ -8,6 +8,11 @@ function Start(){
 
     const navigate = useNavigate();
 
+    function sleep(ms) {
+      const wakeUpTime = Date.now() + ms;
+      while (Date.now() < wakeUpTime) {}
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
     
@@ -30,6 +35,11 @@ function Start(){
           });
 
         setnickName(''); // 폼 초기화
+        console.log("Wait");
+
+        //세션이 완성되는 동안의 로딩
+        //기다리는 대기 모달을 만들 것
+        sleep(1000);
         navigate('/quiz');
       };
     
