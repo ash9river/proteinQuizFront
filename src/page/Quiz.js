@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Modal from 'react-modal';
 import ModalBasic from '../component/ModalBasic';
-
+import Error from './Error';
 function Quiz() {
-  const url = 'http://localhost:8080';
+  // const url = 'http://localhost:8080';
   const navigate = useNavigate();
 
   const [turn, setTurn] = useState(1); //몇번째 턴
@@ -32,7 +32,13 @@ function Quiz() {
       .catch(error => {//에러 발생시 홈으로
         console.log(error.response.data.status);
         if(error.response.data.status==-10)
-          navigate('/');}
+          navigate('/');
+        else
+          navigate('/error');
+          //error url은 없지만 없으면 error 컴포넌트로 보냄
+        }
+        
+
       );
   }, []);
 
@@ -100,7 +106,7 @@ function Quiz() {
       {quiz ? (
         <div key={quiz.key}>
           <h2>{quiz.name}</h2>
-          <img src={url + quiz.file_path} alt={quiz.name} style={{ width: '60%', height: '50vh' }} />
+          <img src={quiz.file_path} alt={quiz.name} style={{ width: '60%', height: '50vh' }} />
           <form onSubmit={handleSubmitAnswer}>
             <div className="form-group">
               <label htmlFor="answer">답안 입력</label>
