@@ -38,7 +38,7 @@ const ModalBasic = ({ user_answer, outcome, onClose }) => {
     return (
       <div className="container">
         {/* 모달 내용 */}
-        <h2>당신의 답안: {user_answer}</h2>
+        <h2>당신의 답안: {user_answer?user_answer:0}</h2>
         <h2>정답: {answer}</h2>
         <h2>이번 라운드 점수</h2>
         <h1>{score}</h1>

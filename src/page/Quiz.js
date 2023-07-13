@@ -89,7 +89,12 @@ function Quiz() {
           setQuiz(response.data.quiz);
           setPlayer(response.data.player);
         })
-        .catch(error => console.log(error));
+        .catch(error => {
+          if(error.response.data.status==-10)
+            navigate('/');
+          else
+            navigate('/error');
+        });
     }
   };
   
@@ -107,9 +112,10 @@ function Quiz() {
         <div key={quiz.key}>
           <h2>{quiz.name}</h2>
           <img src={quiz.file_path} alt={quiz.name} style={{ width: '60%', height: '50vh' }} />
+          <hr/>
           <form onSubmit={handleSubmitAnswer}>
             <div className="form-group">
-              <label htmlFor="answer">답안 입력</label>
+              <h4 htmlFor="answer">단백질이 몇 그램일까요?</h4>
               <input
                 type="text"
                 id="answer"
@@ -118,6 +124,7 @@ function Quiz() {
                 placeholder="답안을 입력하세요"
                 value={answer}
                 onChange={e => setAnswer(e.target.value)}
+                // required
               />
             </div>
             <button className="btn btn-primary" type="submit" disabled={modalIsOpen}>

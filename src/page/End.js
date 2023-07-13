@@ -17,17 +17,42 @@ function End(){
         .catch(error =>{//에러 발생시 홈으로
             console.log(error.response.data.status);
             if(error.response.data.status==-10)
-              navigate('/');})
+              navigate('/');
+            else
+              navigate('/error');
+            })
     }, []);
+
+    const handleClick = () => {
+        navigate('/');
+      };
     return (
         <div className="container">
 
-        <div></div>
+        {player ? (
+        <div>
+            <h2>당신의 순위는 {player.rank}입니다.</h2>
+                <tr>
+                    <th>Rank</th>
+                    <th>NickName</th>
+                    <th>Score</th>
+                </tr>
+                <tr>
+                    {/* <td>{player.rank}</td> */}
+                    <td>{player.nickName}</td>
+                    <td>{player.score}</td>
+                </tr>
+
+        </div>
+        ) : null}
+
+
           <h2>Dashboard</h2>
           {dashboard.length > 0 ? (
             <table className="table table-striped">
                 <thead>
                 <tr>
+                    <th>Rank</th>
                     <th>NickName</th>
                     <th>Score</th>
                 </tr>
@@ -35,6 +60,7 @@ function End(){
                 <tbody>
                 {dashboard.map((item, index) => (
                     <tr key={index}>
+                    <td>{index}</td>
                     <td>{item.nickName}</td>
                     <td>{item.score}</td>
                     </tr>
@@ -44,6 +70,10 @@ function End(){
             ) : (
             <p>Loading...</p>
             )}
+
+    <button className="btn btn-primary" onClick={handleClick}>
+      홈으로
+    </button>
         </div>
       );
 }

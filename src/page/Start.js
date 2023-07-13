@@ -5,7 +5,7 @@ function Start(){
 
     const [nickName, setnickName] = useState('');
     const url ='';
-
+    const [message,setMessage] = useState();
     const navigate = useNavigate();
 
     function sleep(ms) {
@@ -13,22 +13,26 @@ function Start(){
       while (Date.now() < wakeUpTime) {}
     }
 
-    const handleSubmit = (e) => {
+    
+    const handleSubmit = async (e) => {
         e.preventDefault();
     
         // 이메일 값을 서버로 전송
-        fetch('/api/players', {
+
+        await fetch('/api/players', {
           method: 'POST',
           headers: {
-            'Content-Type': 'text/plain',
+            'Content-Type': 'application/json',
           },
-          body:  nickName ,
+          body:  JSON.stringify({nickName: nickName}),
         })
-          .then(response => response) //json으로 할 수 있도록 메세지 처리 고려
+          .then(response => response.json()) //json으로 할 수 있도록 메세지 처리 고려
           .then(data => {
             // POST 요청이 성공한 경우의 처리
             console.log('서버 응답:', data);
+            setMessage(data.message);
           })
+          
           .catch(error => {
             // POST 요청이 실패한 경우의 처리
             console.error('에러:', error);
@@ -39,8 +43,10 @@ function Start(){
 
         //세션이 완성되는 동안의 로딩
         //기다리는 대기 모달을 만들 것
-        sleep(1000);
-        navigate('/quiz');
+
+        if(message =="ok"){
+          sleep(1000);
+          navigate('/quiz');}
       };
     
     
@@ -52,7 +58,7 @@ function Start(){
         <h4 className="mb-3">닉네임 입력</h4>
         <form onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="nickName">닉네임</label>
+            <label htmlFor="nickName"></label>
             <input
               type="text"
               id="nickName"
@@ -61,6 +67,7 @@ function Start(){
               placeholder="닉네임을 입력하세요"
               value={nickName}
               onChange={(e) => setnickName(e.target.value)}
+              autoComplete="off"
               required
             />
           </div>
@@ -70,11 +77,12 @@ function Start(){
               <button className="w-100 btn btn-primary btn-lg" type="submit">
                 시작하기
               </button>
+              
+              
             </div>
           </div>
         </form>
-
-
+        {message? (<div className="alert-danger" role="alert">{message}</div>): null}
       </div>
     );
 }
