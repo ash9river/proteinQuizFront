@@ -136,7 +136,8 @@ function Quiz() {
           </Modal>
         </div>
       ) : (
-        <div>Wait</div>
+        <img src="/images/error.jpg" alt="404Error" className="img-fluid"
+        style={{ width: '50%', height: '50vh' }} ></img>
       )}
     </div>
   );

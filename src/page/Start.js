@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect,useState } from 'react';
 import {useNavigate} from'react-router-dom';
 
 function Start(){
@@ -31,29 +31,34 @@ function Start(){
             // POST 요청이 성공한 경우의 처리
             console.log('서버 응답:', data);
             setMessage(data.message);
-          })
-          
-          .catch(error => {
+          }).then( 
+
+          ).catch(error => {
             // POST 요청이 실패한 경우의 처리
             console.error('에러:', error);
+            navigate('/error');
           });
 
         setnickName(''); // 폼 초기화
         console.log("Wait");
 
-        //세션이 완성되는 동안의 로딩
-        //기다리는 대기 모달을 만들 것
 
+        }
+
+    //세션이 완성되는 동안의 로딩
+    //기다리는 대기 모달을 만들 것    
+    useEffect(()=>{        
         if(message =="ok"){
-          sleep(1000);
-          navigate('/quiz');}
-      };
-    
+        sleep(1000);
+        navigate('/quiz');}
+    }, [message]) 
     
     return (
         <div className="container">
         <div className="py-5 text-center">
           <h2>프로틴 퀴즈</h2>
+          <img src="/images/workout.gif" alt="Loading" className="img-fluid"
+              style={{ width: '30%', height: '30vh' }} ></img>
         </div>
         <h4 className="mb-3">닉네임 입력</h4>
         <form onSubmit={handleSubmit}>
@@ -82,7 +87,6 @@ function Start(){
             </div>
           </div>
         </form>
-        {message? (<div className="alert-danger" role="alert">{message}</div>): null}
       </div>
     );
 }

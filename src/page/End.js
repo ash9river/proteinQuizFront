@@ -31,23 +31,29 @@ function End(){
 
         {player ? (
         <div>
-            <h2>당신의 순위는 {player.rank}입니다.</h2>
-                <tr>
-                    <th>Rank</th>
-                    <th>NickName</th>
-                    <th>Score</th>
-                </tr>
-                <tr>
-                    {/* <td>{player.rank}</td> */}
-                    <td>{player.nickName}</td>
-                    <td>{player.score}</td>
-                </tr>
-
+            <h2>당신의 순위는 {player.rank}위입니다.</h2>
+            <table className="table table-striped">
+                <thead>
+                  <tr>
+                      <th>Rank</th>
+                      <th>NickName</th>
+                      <th>Score</th>
+                  </tr>
+                </thead>
+                <tbody> 
+                  <tr key={0}>
+                      <td>{player.rank}</td>
+                      <td>{player.nickName}</td>
+                      <td>{player.score}</td>
+                  </tr>
+                </tbody>
+            </table>
         </div>
         ) : null}
+        <img src="/images/running.gif" alt="grade" className="img-fluid"
+              style={{ width: '30%', height: '30vh' }} ></img>
 
-
-          <h2>Dashboard</h2>
+          <h2>Top10</h2>
           {dashboard.length > 0 ? (
             <table className="table table-striped">
                 <thead>
@@ -60,7 +66,7 @@ function End(){
                 <tbody>
                 {dashboard.map((item, index) => (
                     <tr key={index}>
-                    <td>{index}</td>
+                    <td>{index+1}</td>
                     <td>{item.nickName}</td>
                     <td>{item.score}</td>
                     </tr>
