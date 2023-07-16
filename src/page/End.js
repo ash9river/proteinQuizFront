@@ -10,7 +10,7 @@ function End(){
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get('/api/dashboard/player',
+        axios.get(url+'/api/dashboard/player',
         { withCredentials: true })
         .then(response => {console.log((response.data))
         setDashBoard(response.data.dashBoard)
