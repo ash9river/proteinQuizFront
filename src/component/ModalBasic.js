@@ -9,7 +9,7 @@ const ModalBasic = ({ user_answer, outcome, onClose }) => {
     const url =process.env.REACT_APP_API_URL
   useEffect(async () => {
     if (outcome && score === null) {
-      await fetch(url+'/api/players/outcome', {
+      await fetch(url+'/api/outcome', {
         method: 'POST',
         credentials: "include",
         headers: {
