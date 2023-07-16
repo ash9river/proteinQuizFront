@@ -24,7 +24,7 @@ function Quiz() {
     console.log('Get Quiz');
 
     axios
-      .get('/api/quizs',
+      .get(url+'/api/quizs',
       { withCredentials: true })
       .then(response => {
         setQuiz(response.data.quiz);
