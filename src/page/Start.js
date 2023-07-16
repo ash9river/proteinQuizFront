@@ -19,7 +19,7 @@ function Start(){
     
         // 이메일 값을 서버로 전송
 
-        await fetch(url+'/api/players', {
+        await fetch('/api/players', {
           method: 'POST',
           credentials: "include",
           headers: {

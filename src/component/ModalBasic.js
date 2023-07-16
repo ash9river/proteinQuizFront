@@ -6,10 +6,10 @@ const ModalBasic = ({ user_answer, outcome, onClose }) => {
   const [score, setScore] = useState(null);
   const [answer, setAnswer] = useState(null);
   const navigate = useNavigate();
-  const url =process.env.REACT_APP_API_URL
+    const url =process.env.REACT_APP_API_URL
   useEffect(() => {
     if (outcome && score === null) {
-      fetch(url+'/api/players/outcome', {
+      fetch('/api/players/outcome', {
         method: 'POST',
         credentials: "include",
         headers: {
