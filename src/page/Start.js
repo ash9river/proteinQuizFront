@@ -21,6 +21,7 @@ function Start(){
 
         await fetch(url+'/api/players', {
           method: 'POST',
+          credentials: "include",
           headers: {
             'Content-Type': 'application/json',
           },

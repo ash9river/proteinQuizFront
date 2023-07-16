@@ -4,12 +4,14 @@ import { useNavigate } from 'react-router-dom';
 
 
 function End(){
+    const url =process.env.REACT_APP_BASE_URL
     const [dashboard,setDashBoard] = useState([])
     const [player,setPlayer] = useState({})
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get('/api/dashboard/player')
+        axios.get(url+'/api/dashboard/player',
+        { withCredentials: true })
         .then(response => {console.log((response.data))
         setDashBoard(response.data.dashBoard)
         setPlayer(response.data.player)
