@@ -5,7 +5,7 @@ import Modal from 'react-modal';
 import ModalBasic from '../component/ModalBasic';
 import Error from './Error';
 function Quiz() {
-  const url = process.env.BASE_URL;
+  const url = process.env.REACT_APP_BASE_URL;
   const navigate = useNavigate();
 
   const [turn, setTurn] = useState(1); //몇번째 턴
