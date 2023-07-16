@@ -19,6 +19,10 @@
       {
         "source": "/api/:path*/",
         "destination": "https://port-0-proteinquiz-20zynm2mlk2a7j4g.sel4.cloudtype.app/:path*/"
+      },
+      {
+        "source": "/(.*)",
+        "destination": "/"
       }
 
     ]
