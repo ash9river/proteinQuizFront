@@ -5,7 +5,7 @@ import Modal from 'react-modal';
 import ModalBasic from '../component/ModalBasic';
 import Error from './Error';
 function Quiz() {
-  // const url = 'http://localhost:8080';
+  const url = process.env.BASE_URL;
   const navigate = useNavigate();
 
   const [turn, setTurn] = useState(1); //몇번째 턴
@@ -24,7 +24,7 @@ function Quiz() {
     console.log('Get Quiz');
 
     axios
-      .get('/api/quizs')
+      .get(url+'/api/quizs')
       .then(response => {
         setQuiz(response.data.quiz);
         setPlayer(response.data.player);

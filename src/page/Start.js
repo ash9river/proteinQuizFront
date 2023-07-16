@@ -4,7 +4,7 @@ import {useNavigate} from'react-router-dom';
 function Start(){
 
     const [nickName, setnickName] = useState('');
-    const url ='';
+    const url =process.env.BASE_URL;
     const [message,setMessage] = useState();
     const navigate = useNavigate();
 
@@ -19,7 +19,7 @@ function Start(){
     
         // 이메일 값을 서버로 전송
 
-        await fetch('/api/players', {
+        await fetch(url+'/api/players', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
