@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 function End(){
-    const url =process.env.REACT_APP_BASE_URL
+    const url =process.env.REACT_APP_API_URL
     const [dashboard,setDashBoard] = useState([])
     const [player,setPlayer] = useState({})
     const navigate = useNavigate();

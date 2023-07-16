@@ -4,7 +4,7 @@ import {useNavigate} from'react-router-dom';
 function Start(){
 
     const [nickName, setnickName] = useState('');
-    const url =process.env.REACT_APP_BASE_URL;
+    const url =process.env.REACT_APP_API_URL;
     const [message,setMessage] = useState();
     const navigate = useNavigate();
 
