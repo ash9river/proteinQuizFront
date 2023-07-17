@@ -84,8 +84,10 @@ function Quiz() {
       setOutcome(null);
       setModalIsOpen(false);
       axios
-        .get('/api/quizs')
+        .get(url +'/api/quizs',
+        { withCredentials: true })
         .then(response => {
+          console.log(response);
           setQuiz(response.data.quiz);
           setPlayer(response.data.player);
         })
