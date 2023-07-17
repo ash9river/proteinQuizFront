@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Modal from 'react-modal';
 import ModalBasic from '../component/ModalBasic';
-import Error from './Error';
 function Quiz() {
   const url = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();

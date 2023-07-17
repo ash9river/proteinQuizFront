@@ -15,6 +15,7 @@ const ModalBasic = ({ user_answer, outcome, onClose }) => {
           headers: {
             'Cache-Control' : 'no-cache',
             'Content-Type': 'application/json',
+            "Access-Control-Allow-Origin" : url
           },
         })
         .then(response => {
