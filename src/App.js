@@ -27,10 +27,10 @@ function App() {
           element: <End/>,
           errorElement: <Error/>,
         }
-      ]);
+      ],
+      {basename:process.env.PUBLIC_URL}
+      );
       return <RouterProvider
-      basename={process.env.PUBLIC_URL}
-      forceRefresh={true}
       router={router} />;
 }
 
