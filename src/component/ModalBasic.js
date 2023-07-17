@@ -13,6 +13,7 @@ const ModalBasic = ({ user_answer, outcome, onClose }) => {
         .post(url + '/api/outcome', outcome, {
           withCredentials: true,
           headers: {
+            'Cache-Control' : 'no-cahce',
             'Content-Type': 'application/json',
           },
         })
