@@ -30,6 +30,7 @@ function App() {
       ]);
       return <RouterProvider
       basename={process.env.PUBLIC_URL}
+      forceRefresh={true}
       router={router} />;
 }
 
