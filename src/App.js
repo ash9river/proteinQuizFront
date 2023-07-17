@@ -5,30 +5,32 @@ import End from './page/End';
 import Error from './page/Error';
 
 function App() {
-    const url =process.env.REACT_APP_BASE_URL; 
+    
     const router = createBrowserRouter([
         {
-          path: url+'/*',
+          path: '*',
           element: <Error/>,
           
         },
         {
-          path: url+'/',
+          path: '/',
           element: <Start/>,
           errorElement: <Error/>,
         },
         {
-          path: url+'/quiz',
+          path: '/quiz',
           element: <Quiz/>,
           errorElement: <Error/>,
         },
         {
-          path: url+'/end',
+          path: '/end',
           element: <End/>,
           errorElement: <Error/>,
         }
       ]);
-      return <RouterProvider router={router} />;
+      return <RouterProvider
+      basename={process.env.PUBLIC_URL}
+      router={router} />;
 }
 
 export default App;
