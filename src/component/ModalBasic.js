@@ -1,34 +1,32 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import axios from 'axios';
 
 const ModalBasic = ({ user_answer, outcome, onClose }) => {
   const [score, setScore] = useState(null);
   const [answer, setAnswer] = useState(null);
   const navigate = useNavigate();
   const url =process.env.REACT_APP_API_URL;
-  useEffect(
-    () => {
+  useEffect(() => {
     if (outcome && score === null) {
-      
-      fetch(url+'/api/outcome', {
-        method: 'POST',
-        credentials: "include",
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(outcome),
-      })
-        .then(response => response.json())
-        .then(data => {
-          console.log(data);
-          setAnswer(data.answer);
-          setScore(data.score);
+      axios
+        .post(url + '/api/outcome', outcome, {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+          },
         })
-        .catch(error => {//에러 발생시 홈으로
+        .then(response => {
+          console.log(response.data);
+          setAnswer(response.data.answer);
+          setScore(response.data.score);
+        })
+        .catch(error => {
           console.log(error.response.data.status);
-          if(error.response.data.status==-10) //서버에서 보낸 에러 코드
-            navigate('/');});
+          if (error.response.data.status === -10) {
+            navigate('/');
+          }
+        });
     }
   }, [outcome, score]);
 
