@@ -1,0 +1,11 @@
+#.htaccess의 주석!
+# ▼ RewriteEngine을 활성화 합니다
+RewriteEngine On
+# ▼ 접속한 곳이 index.html이 아니라면
+RewriteRule ^index\.html$ - [L]
+# ▼ 그와 동시에 접속한 곳에 파일이 없다면
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-l
+# ▼ URL은 유지한 채 index.html을 표시합니다
+RewriteRule . ./index.html [L]

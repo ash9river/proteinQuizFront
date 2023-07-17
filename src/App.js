@@ -27,10 +27,9 @@ function App() {
           element: <End/>,
           errorElement: <Error/>,
         }
-      ],
-      {basename:process.env.PUBLIC_URL}
-      );
+      ]);
       return <RouterProvider
+      
       router={router} />;
 }
 
