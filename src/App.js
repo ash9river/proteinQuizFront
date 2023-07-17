@@ -15,17 +15,20 @@ function App() {
           path: '/',
           element: <Start/>,
           errorElement: <Error/>,
+          children:[
+            {
+              path: '/quiz',
+              element: <Quiz/>,
+              errorElement: <Error/>,
+            },
+            {
+              path: '/end',
+              element: <End/>,
+              errorElement: <Error/>,
+            }
+          ]
         },
-        {
-          path: '/quiz',
-          element: <Quiz/>,
-          errorElement: <Error/>,
-        },
-        {
-          path: '/end',
-          element: <End/>,
-          errorElement: <Error/>,
-        }
+        
       ]);
       return <RouterProvider router={router} />;
 }
