@@ -56,24 +56,7 @@ function End(){
         ) : null}
         <img src="/images/running.gif" alt="grade" className="img-fluid"
               style={{ width: '30%', height: '30vh' }} ></img>
-        <h3>점수 기준</h3>
-        <table className="table table-striped">
-                <thead>
-                  <tr>
-                      <th>오차범위</th>
-                      <th>점수</th>
-                  </tr>
-                </thead>
-                <tbody> 
-                {Object.keys(scoreTable).map((key) => (
-                    <tr key={key}>
-                    <td>{key}</td>
-                    <td>{scoreTable.key}</td>
-                    </tr>
-                ))}
-                </tbody>
-            </table>
-
+      
           <h2>Top10</h2>
           {dashboard.length > 0 ? (
             <table className="table table-striped">
@@ -94,9 +77,28 @@ function End(){
                 ))}
                 </tbody>
             </table>
+
+            
             ) : (
             <p>Loading...</p>
             )}
+          <h3>점수 기준</h3>
+                  <table className="table table-striped">
+                          <thead>
+                            <tr>
+                                <th>오차범위</th>
+                                <th>점수</th>
+                            </tr>
+                          </thead>
+                          <tbody> 
+                          {Object.keys(scoreTable).map((key) => (
+                              <tr key={key}>
+                              <td>{key}</td>
+                              <td>{scoreTable[key]}</td>
+                              </tr>
+                          ))}
+                          </tbody>
+                      </table>
 
     <button className="btn btn-primary" onClick={handleClick}>
       홈으로
