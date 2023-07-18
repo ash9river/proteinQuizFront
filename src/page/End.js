@@ -9,7 +9,7 @@ function End(){
     const [player,setPlayer] = useState({})
     const navigate = useNavigate();
     const scoreTable={
-      "5":20, "15":15, "30": 10, "50":5, "그 외": 0
+      "5":20, "15":15, "30": 10, "50":5, "50 이상": 0
     }
     useEffect(() => {
         axios.get(url+'/api/dashboard/player',
