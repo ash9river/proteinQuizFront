@@ -56,9 +56,8 @@ function End(){
         ) : null}
         <img src="/images/running.gif" alt="grade" className="img-fluid"
               style={{ width: '30%', height: '30vh' }} ></img>
-
+        <h3>점수 기준</h3>
         <table className="table table-striped">
-            <h3>점수 기준</h3>
                 <thead>
                   <tr>
                       <th>오차범위</th>
@@ -66,7 +65,7 @@ function End(){
                   </tr>
                 </thead>
                 <tbody> 
-                {Object.entries(scoreTable).forEach((errorRange, score) => (
+                {Object.entries(scoreTable).map((errorRange, score) => (
                     <tr key={score}>
                     <td>{errorRange}</td>
                     <td>{score}</td>

@@ -81,8 +81,9 @@ function Start(){
               <button className="w-100 btn btn-primary btn-lg" type="submit">
                 시작하기
               </button>
-              
-              
+            </div>
+            <div className="col">
+              <a href='https://www.data.go.kr/data/15100070/standard.do'><p>데이터 출처</p></a>
             </div>
           </div>
         </form>
