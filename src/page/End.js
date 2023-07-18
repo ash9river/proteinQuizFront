@@ -82,7 +82,7 @@ function End(){
             ) : (
             <p>Loading...</p>
             )}
-          <h3>점수 기준</h3>
+          <h2>점수 기준</h2>
                   <table className="table table-striped">
                           <thead>
                             <tr>
@@ -93,7 +93,7 @@ function End(){
                           <tbody> 
                           {Object.keys(scoreTable).map((key) => (
                               <tr key={key}>
-                              <td>{key}</td>
+                              <td>±{key}</td>
                               <td>{scoreTable[key]}</td>
                               </tr>
                           ))}
