@@ -30,7 +30,6 @@ function Quiz() {
         setPlayer(response.data.player);
       })
       .catch(error => {//에러 발생시 홈으로
-        console.log(error.response.data.status);
         if(error.response.data.status==-10)
           navigate('/');
         else
@@ -55,7 +54,6 @@ function Quiz() {
   const handleSubmitAnswer = e => {
     e.preventDefault();
 
-    console.log(answer);
 
     // 전송할 폼 작성
     const outcomeData = {
@@ -87,7 +85,6 @@ function Quiz() {
         .get(url +'/api/quizs',
         { withCredentials: true })
         .then(response => {
-          console.log(response);
           setQuiz(response.data.quiz);
           setPlayer(response.data.player);
         })

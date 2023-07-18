@@ -19,12 +19,10 @@ const ModalBasic = ({ user_answer, outcome, onClose }) => {
           },
         })
         .then(response => {
-          console.log(response.data);
           setAnswer(response.data.answer);
           setScore(response.data.score);
         })
         .catch(error => {
-          console.log(error.response.data.status);
           if (error.response.data.status === -10) {
             navigate('/');
           }

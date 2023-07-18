@@ -8,16 +8,18 @@ function End(){
     const [dashboard,setDashBoard] = useState([])
     const [player,setPlayer] = useState({})
     const navigate = useNavigate();
-
+    const scoreTable={
+      "5":20, "15":15, "30": 10, "50":5, "그 외": 0
+    }
     useEffect(() => {
         axios.get(url+'/api/dashboard/player',
         { withCredentials: true })
-        .then(response => {console.log((response.data))
+        .then(response => {
         setDashBoard(response.data.dashBoard)
         setPlayer(response.data.player)
     })
         .catch(error =>{//에러 발생시 홈으로
-            console.log(error.response.data.status);
+            
             if(error.response.data.status==-10)
               navigate('/');
             else
@@ -54,6 +56,24 @@ function End(){
         ) : null}
         <img src="/images/running.gif" alt="grade" className="img-fluid"
               style={{ width: '30%', height: '30vh' }} ></img>
+
+        <table className="table table-striped">
+            <h3>점수 기준</h3>
+                <thead>
+                  <tr>
+                      <th>오차범위</th>
+                      <th>점수</th>
+                  </tr>
+                </thead>
+                <tbody> 
+                {Object.entries(scoreTable).forEach((errorRange, score) => (
+                    <tr key={score}>
+                    <td>{errorRange}</td>
+                    <td>{score}</td>
+                    </tr>
+                ))}
+                </tbody>
+            </table>
 
           <h2>Top10</h2>
           {dashboard.length > 0 ? (

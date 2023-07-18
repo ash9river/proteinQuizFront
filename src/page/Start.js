@@ -30,13 +30,11 @@ function Start(){
           .then(response => response.json()) //json으로 할 수 있도록 메세지 처리 고려
           .then(data => {
             // POST 요청이 성공한 경우의 처리
-            console.log('서버 응답:', data);
             setMessage(data.message);
           }).then( 
 
           ).catch(error => {
             // POST 요청이 실패한 경우의 처리
-            console.error('에러:', error);
             navigate('/error');
           });
 
