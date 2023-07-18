@@ -65,10 +65,10 @@ function End(){
                   </tr>
                 </thead>
                 <tbody> 
-                {Object.entries(scoreTable).map((errorRange, score) => (
-                    <tr key={score}>
-                    <td>{errorRange}</td>
-                    <td>{score}</td>
+                {Object.keys(scoreTable).map((key) => (
+                    <tr key={key}>
+                    <td>{key}</td>
+                    <td>{scoreTable.key}</td>
                     </tr>
                 ))}
                 </tbody>
