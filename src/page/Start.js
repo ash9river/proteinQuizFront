@@ -8,6 +8,19 @@ function Start(){
     const [message,setMessage] = useState();
     const navigate = useNavigate();
 
+    const [randomNickname, setRandomNickname] = useState('');
+
+    useEffect(() => {
+      const adjectives = ['Happy', 'Silly', 'Funny', 'Crazy', 'Lovely', 'Gentle', 'Brave', 'Cheerful', 'Sunny', 'Playful', 'Charming', 'Fierce', 'Adventurous', 'Clever', 'Delightful', 'Jolly', 'Kind', 'Lively', 'Majestic', 'Noble', 'Optimistic', 'Pleasant', 'Quick-witted', 'Radiant', 'Spirited', 'Talented', 'Vibrant', 'Witty', 'Youthful'];
+      const nouns = ['Panda', 'Tiger', 'Kangaroo', 'Dolphin', 'Butterfly', 'Elephant', 'Zebra', 'Koala', 'Giraffe', 'Lion', 'Peacock', 'Penguin', 'Owl', 'Squirrel', 'Jaguar', 'Raccoon', 'Koala', 'PolarBear', 'Turtle', 'Penguin', 'Seahorse', 'Gorilla', 'Puffin', 'Hedgehog', 'Jellyfish', 'Chameleon', 'Koala', 'RedPanda', 'Toucan'];
+  
+        const randomAdjective = adjectives[Math.floor(Math.random() * adjectives.length)];
+        const randomNoun = nouns[Math.floor(Math.random() * nouns.length)];
+    
+        const generatedNickname = randomAdjective +' '+randomNoun + String(Math.ceil(10000*Math.random()));
+        setRandomNickname(generatedNickname);
+      },[message])
+    
     function sleep(ms) {
       const wakeUpTime = Date.now() + ms;
       while (Date.now() < wakeUpTime) {}
@@ -44,6 +57,9 @@ function Start(){
 
         }
 
+    
+          
+
     //세션이 완성되는 동안의 로딩
     //기다리는 대기 모달을 만들 것    
     useEffect(()=>{        
@@ -59,7 +75,7 @@ function Start(){
           <img src="/images/workout.gif" alt="Loading" className="img-fluid"
               style={{ width: '30%', height: '30vh' }} ></img>
         </div>
-        <h4 className="mb-3">닉네임 입력</h4>
+        <h4 className="mb-3">닉네임</h4>
         <form onSubmit={handleSubmit}>
           <div>
             <label htmlFor="nickName"></label>
@@ -69,10 +85,11 @@ function Start(){
               name="nickName"
               className="form-control"
               placeholder="닉네임을 입력하세요"
-              value={nickName}
+              value={randomNickname}
               onChange={(e) => setnickName(e.target.value)}
               autoComplete="off"
               required
+              disabled
             />
           </div>
           <hr className="my-4" />
