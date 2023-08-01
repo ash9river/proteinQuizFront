@@ -16,7 +16,7 @@ function Start(){
         const randomAdjective = adjectives[Math.floor(Math.random() * adjectives.length)];
         const randomNoun = nouns[Math.floor(Math.random() * nouns.length)];
     
-        const generatedNickname = randomAdjective +' '+randomNoun + String(Math.ceil(10000*Math.random()));
+        const generatedNickname = randomAdjective +'-'+randomNoun + String(Math.ceil(10000*Math.random()));
         setRandomNickname(generatedNickname);
       },[message])
     
