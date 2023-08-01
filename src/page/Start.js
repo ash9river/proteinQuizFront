@@ -37,7 +37,7 @@ function Start(){
           headers: {
             'Content-Type': 'application/json',
           },
-          body:  JSON.stringify({nickName: nickName}),
+          body:  JSON.stringify({nickName: randomNickname}),
         })
           .then(response => response.json()) //json으로 할 수 있도록 메세지 처리 고려
           .then(data => {
@@ -50,7 +50,7 @@ function Start(){
             navigate('/error');
           });
 
-        setnickName(''); // 폼 초기화
+
         console.log("Wait");
 
 
@@ -72,7 +72,7 @@ function Start(){
         <div className="container">
         <div className="py-5 text-center">
           <h2>프로틴 퀴즈</h2>
-          {message =="ok"?
+          {Math.ceil(10000*Math.random())%2==0?
           (<img src="/images/potato.gif" alt="Loading" className="img-fluid"
               style={{ width: '30%', height: '30vh' }} ></img>):
           (<img src="/images/workout.gif" alt="Loading" className="img-fluid"
