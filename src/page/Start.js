@@ -7,7 +7,6 @@ function Start(){
     const url =process.env.REACT_APP_API_URL;
     const [message,setMessage] = useState();
     const navigate = useNavigate();
-
     const [randomNickname, setRandomNickname] = useState('');
 
     useEffect(() => {
@@ -60,20 +59,25 @@ function Start(){
     
           
 
-    //세션이 완성되는 동안의 로딩
+    //백엔드 세션이 완성되는 동안의 로딩
     //기다리는 대기 모달을 만들 것    
     useEffect(()=>{        
         if(message =="ok"){
         sleep(1000);
-        navigate('/quiz');}
+        navigate('/quiz');
+      }
     }, [message]) 
     
     return (
         <div className="container">
         <div className="py-5 text-center">
           <h2>프로틴 퀴즈</h2>
-          <img src="/images/workout.gif" alt="Loading" className="img-fluid"
-              style={{ width: '30%', height: '30vh' }} ></img>
+          {message =="ok"?
+          (<img src="/images/potato.gif" alt="Loading" className="img-fluid"
+              style={{ width: '30%', height: '30vh' }} ></img>):
+          (<img src="/images/workout.gif" alt="Loading" className="img-fluid"
+              style={{ width: '30%', height: '30vh' }} ></img>)              
+          }
         </div>
         <h4 className="mb-3">닉네임</h4>
         <form onSubmit={handleSubmit}>
