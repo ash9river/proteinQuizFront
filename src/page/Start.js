@@ -1,7 +1,7 @@
 import React, { useEffect,useState } from 'react';
 import {useNavigate} from'react-router-dom';
 
-function Start(){
+const Start=()=>{
 
     const [nickName, setnickName] = useState('');
     const url =process.env.REACT_APP_API_URL;
@@ -13,11 +13,12 @@ function Start(){
       const adjectives = ['Happy', 'Silly', 'Funny', 'Crazy', 'Lovely', 'Gentle', 'Brave', 'Cheerful', 'Sunny', 'Playful', 'Charming', 'Fierce', 'Adventurous', 'Clever', 'Delightful', 'Jolly', 'Kind', 'Lively', 'Majestic', 'Noble', 'Optimistic', 'Pleasant', 'Quick-witted', 'Radiant', 'Spirited', 'Talented', 'Vibrant', 'Witty', 'Youthful'];
       const nouns = ['Panda', 'Tiger', 'Kangaroo', 'Dolphin', 'Butterfly', 'Elephant', 'Zebra', 'Koala', 'Giraffe', 'Lion', 'Peacock', 'Penguin', 'Owl', 'Squirrel', 'Jaguar', 'Raccoon', 'Koala', 'PolarBear', 'Turtle', 'Penguin', 'Seahorse', 'Gorilla', 'Puffin', 'Hedgehog', 'Jellyfish', 'Chameleon', 'Koala', 'RedPanda', 'Toucan'];
   
-        const randomAdjective = adjectives[Math.floor(Math.random() * adjectives.length)];
-        const randomNoun = nouns[Math.floor(Math.random() * nouns.length)];
+      const randomAdjective = adjectives[Math.floor(Math.random() * adjectives.length)];
+      const randomNoun = nouns[Math.floor(Math.random() * nouns.length)];
     
-        const generatedNickname = randomAdjective +'-'+randomNoun + String(Math.ceil(10000*Math.random()));
-        setRandomNickname(generatedNickname);
+      const generatedNickname = randomAdjective +'-'+randomNoun + String(Math.ceil(10000*Math.random()));
+      
+      setRandomNickname(generatedNickname);
       },[message])
     
     function sleep(ms) {
@@ -31,7 +32,7 @@ function Start(){
     
         // 이메일 값을 서버로 전송
 
-        await fetch(url+'/api/players', {
+        await fetch(url+'/api/test/players', {
           method: 'POST',
           credentials: "include",
           headers: {
