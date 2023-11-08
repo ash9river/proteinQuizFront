@@ -12,7 +12,7 @@ function End(){
       "5":20, "15":15, "30": 10, "50":5, "50 이상": 0
     }
     useEffect(() => {
-        axios.get(url+'/api/dashboard/player',
+        axios.get(url+'/api/test/dashboard/player',
         { withCredentials: true })
         .then(response => {
         setDashBoard(response.data.dashBoard)

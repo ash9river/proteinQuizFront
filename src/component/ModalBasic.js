@@ -10,7 +10,7 @@ const ModalBasic = ({ user_answer, outcome, onClose }) => {
   useEffect(() => {
     if (outcome && score === null) {
       axios
-        .post(url + '/api/outcome', outcome, {
+        .post(url + '/api/test/outcome', outcome, {
           withCredentials: true,
           headers: {
             'Cache-Control' : 'no-cache',

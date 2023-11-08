@@ -4,7 +4,7 @@ function ApiCheck(){
     const [hello, setHello] = useState([])
     const url =""
     useEffect(() => {
-        axios.get(url+'/api/quizs')
+        axios.get(url+'/api/test/quizs')
         .then(response => {console.log((response.data))
         setHello(response.data)
     })

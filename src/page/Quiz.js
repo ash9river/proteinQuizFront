@@ -23,7 +23,7 @@ function Quiz() {
     console.log('Get Quiz');
 
     axios
-      .get(url+'/api/quizs',
+      .get(url+'/api/test/quizs',
       { withCredentials: true })
       .then(response => {
         setQuiz(response.data.quiz);
@@ -82,7 +82,7 @@ function Quiz() {
       setOutcome(null);
       setModalIsOpen(false);
       axios
-        .get(url +'/api/quizs',
+        .get(url +'/api/test/quizs',
         { withCredentials: true })
         .then(response => {
           setQuiz(response.data.quiz);
