@@ -64,7 +64,7 @@ const Start=()=>{
     //기다리는 대기 모달을 만들 것    
     useEffect(()=>{        
         if(message =="ok"){
-        sleep(1000);
+        sleep(500);
         navigate('/quiz');
       }
     }, [message]) 

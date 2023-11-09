@@ -10,11 +10,15 @@ const Home=()=>{
 
     const navigate=useNavigate();
 
+    //message가 ok면 백엔드세션 로딩 대기(필수적)
+    // 아니면 랜덤 닉네임 생성
     useEffect(()=>{
         if(message==="ok"){
             const timer=setInterval(() => {
+
+        //타이머가 실행되는 동안 사용자의 대기 경험 향상시킬 무언가 넣기
                 navigate('/quiz');
-            },1000);
+            },500);
         }
         else{
             const adjectives = ['Happy', 'Silly', 'Funny', 'Crazy', 'Lovely', 'Gentle', 'Brave', 'Cheerful', 'Sunny', 'Playful', 'Charming', 'Fierce', 'Adventurous', 'Clever', 'Delightful', 'Jolly', 'Kind', 'Lively', 'Majestic', 'Noble', 'Optimistic', 'Pleasant', 'Quick-witted', 'Radiant', 'Spirited', 'Talented', 'Vibrant', 'Witty', 'Youthful'];
@@ -30,6 +34,7 @@ const Home=()=>{
     },[message])
     
     const handleSubmit=async(e)=>{
+        //이벤트 상위로 번지는거 방지
         e.preventDefault();
 
         await fetch(url+'/api/test/players',{
